@@ -6,7 +6,14 @@ A system to allow you to develop and test your spASIC experiments on TT demoboar
 
 With this framework, you can easily design your experiment to run (in SPACE!) on the experiment module.
 
-There are a few relatively simple steps to integrate your test in a manner that will work within the spasics SDK.  
+There are a few relatively simple steps to integrate your test in a manner that will work within the spasics SDK.
+
+## How to decode payload recieved from space!
+
+You just recived and decrypted downlink packets but now how do I decode this experiments payload?
+to fit as much data as possible into 10 bytes we used bit-packing
+
+TBD
 
 ## Quickstart Guide
 

@@ -25,11 +25,14 @@ We’re also sending some sneaky clues in code—
 
 # 📡 How to Decode Payload Received from Space
 
-Due to bandwidth constraints, we're limited to sending just **10 bytes** of data at a time. But with the help of **Huffman Encoding**, we're achieving compression ratios up to **2.33:1** on our datasets! 🚀
+Due to bandwidth constraints, we're limited to sending just **10 bytes** of data at a time. But with the help of **QubitText-Compressor**! 🚀
+
+Table:
+```a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,space```
 
 Want to decode our payloads or compress your own?  
 Check out the decoder and encoder in our repo:  
-🔗 [Repository Link Placeholder – replace with actual URL]
+🔗 [[QubitText-Compressor](https://github.com/Qubitbytesltd/QubitText-Compressor)]
 
 
 

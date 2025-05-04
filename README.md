@@ -25,14 +25,15 @@ We’re also sending some sneaky clues in code—
 
 # 📡 How to Decode Payload Received from Space
 
-Due to bandwidth constraints, we're limited to sending just **10 bytes** of data at a time. But with the help of **QubitText-Compressor**! 🚀
+Due to bandwidth constraints, we're limited to sending just **10 bytes** of data at a time.  
+But with the help of **QubitText-Compressor**, we can transmit **15 characters**—and even more if we reduce the character table! 🚀
 
 Table:
 ```a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,space```
 
 Want to decode our payloads or compress your own?  
 Check out the decoder and encoder in our repo:  
-🔗 [[QubitText-Compressor](https://github.com/Qubitbytesltd/QubitText-Compressor)]
+🔗 [QubitText-Compressor](https://github.com/Qubitbytesltd/QubitText-Compressor)
 
 
 

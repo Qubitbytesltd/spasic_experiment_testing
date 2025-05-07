@@ -15,8 +15,10 @@ Who knows—an alien drifting nearby  Might hear our tune as it floats through t
 
 But don't you worry, we’re tracking the pins,  In case someone out there tries muting our hymns! 🎼
 
+**TDLR:** Rick Rolling aliens in space—*Never Gonna Give You Up* across the stars! 🚀🎶👽
+
 🎥 **Watch our section of silicon in action:**  
-[LinkedIn Demo Video](https://www.linkedin.com/feed/update/urn:li:activity:7288258716959752192)
+[Demo Video](https://www.linkedin.com/feed/update/urn:li:activity:7288258716959752192)
 
 We’re also sending some sneaky clues in code—  
 *easter eggs* that may take a few orbits to fully decode... 👀
@@ -29,7 +31,7 @@ Due to bandwidth constraints, we're limited to sending just **10 bytes** of data
 But with the help of **QubitText-Compressor**, we can transmit **15 characters**—and even more if we reduce the character table! 🚀
 
 Table:
-```a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,space```
+```a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,space,,,.,!,?```
 
 Want to decode our payloads or compress your own?  
 Check out the decoder and encoder in our repo:  

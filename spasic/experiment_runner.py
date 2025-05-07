@@ -42,7 +42,7 @@ class ExperimentRunner:
     def status(self):
         if self.experiment_running:
             print(f'Experiment {self.experiment_id} running ({self.experiment_duration}s)')
-            print(f'\tCurrent results: {self.experiment_result}')
+            print(f'\tCurrent results: {self.experiment_results_as_str}')
             return 
         
         if self.experiment_id == 0:
@@ -51,16 +51,16 @@ class ExperimentRunner:
         
         if self.experiment_completed:
             print(f'Experiment {self.experiment_id} completed after {self.experiment_duration}s')
-            print(f'  Final results: {self.experiment_result}')
+            print(f'  Final results: {self.experiment_results_as_str}')
             return
         
         if self.experiment_exception is not None:
             print(f'Experiment {self.experiment_id} had exception after {self.experiment_exception}')
-            print(f'  Final results: {self.experiment_result}')
+            print(f'  Final results: {self.experiment_results_as_str}')
             return 
         
         print(f'Experiment {self.experiment_id} is marked neither as completed nor as having exception??')
-        print(f'  Final results: {self.experiment_result}')
+        print(f'  Final results: {self.experiment_results_as_str}')
         
             
             
@@ -88,6 +88,10 @@ class ExperimentRunner:
         return self._result.result
     
     @property 
+    def experiment_results_as_str(self):
+        return ' '.join(map(lambda x: hex(x), self._result.result))
+    
+    @property 
     def experiment_completed(self):
         return self._result.completed
     
@@ -104,6 +108,68 @@ class ExperimentRunner:
             Run time in seconds of experiment
         '''
         return self._result.run_duration
+    
+    def get_loader(self, experiment_id:int):
+        
+        if not isinstance(experiment_id, int):
+            raise RuntimeError('Must pass experiment id as INTEGER') 
+
+        if experiment_id not in ExperimentsAvailable:
+            print(f"I'm not aware of experiment {experiment_id}.  Add it to ExperimentsAvailable")
+            return False 
+        
+        runner = ExperimentsAvailable[experiment_id]
+        return runner
+    
+    def monitor_until_completed(self, sleep_interval:float=0.25):
+        
+        if not self.experiment_id:
+            print("No experiment run!")
+            return 
+        if self.experiment_completed:
+            print("Already done!")
+            self.status()
+            
+        
+        print(f"Monitoring experiment {self.experiment_id}...")
+        self.status()
+        bts = bytearray()
+        while not self.experiment_completed:
+            if self.experiment_result != bts:
+                print()
+                self.status()
+                bts = bytearray(self.experiment_result)
+        
+        print()
+        print()
+        print("Experiment run completed!  Final status:")
+        self.status()
+                
+            
+            
+        
+    
+    def trigger_loader_in_mainthread(self, experiment_id:int, experiment_parameters:bytearray=None):
+        '''
+            A utility method for debugging
+        
+        '''
+        runner = self.get_loader(experiment_id)
+        
+        if not runner:
+            print(f"Could not fetch runner for exp {experiment_id}")
+            return False
+        
+        if experiment_parameters is None:
+            experiment_parameters = bytearray(10)
+        
+        self._result.expid = experiment_id
+        self._result.start()
+        self._params.start(experiment_parameters)
+        
+        runner(self._params, self._result)
+
+        
         
     def launch(self, experiment_id:int, experiment_parameters:bytearray=None):
         '''
@@ -113,13 +179,9 @@ class ExperimentRunner:
             @return: True on launch success
         
         '''
-        if not isinstance(experiment_id, int):
-            raise RuntimeError('Must pass experiment id as INTEGER') 
         if experiment_parameters is None:
             experiment_parameters = bytearray(10)
-        elif not isinstance(experiment_parameters, (bytearray, bytes)):
-            raise RuntimeError('Must pass experiment params as bytearray')
-        
+
         parm_len = len(experiment_parameters) 
         if parm_len> 10:
             experiment_parameters = experiment_parameters[:10]
@@ -130,15 +192,15 @@ class ExperimentRunner:
             print(f"Can't launch!  Experiment {self._result.expid} is currently running")
             return False 
         
-        if experiment_id not in ExperimentsAvailable:
-            print(f"I'm not aware of experiment {experiment_id}.  Add it to ExperimentsAvailable")
-            return False 
+        runner = self.get_loader(experiment_id)
+        if not runner:
+            print(f"Could not fetch runner for exp {experiment_id}")
+            return False
         
         self._result.expid = experiment_id
         self._result.start()
         self._params.start(experiment_parameters)
-        
-        runner = ExperimentsAvailable[experiment_id]
+
         
         print(f"Launching experiment {experiment_id}")
         try:

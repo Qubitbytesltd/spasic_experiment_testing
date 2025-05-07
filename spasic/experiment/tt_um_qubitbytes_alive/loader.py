@@ -8,24 +8,24 @@ Created on Apr 30, 2025
 from spasic.experiment.experiment_result import ExpResult
 from spasic.experiment.experiment_parameters import ExperimentParameters
 
-def run_experiment(params:ExperimentParameters, response:ExpResult):
+def run_experiment(params:ExperimentParameters, snoopy:ExpResult):
     
     # always wrap everything in a try block
     try:
         # import HERE, inside the function, 
         # such that loading all the experiment runners doesn't 
         # eat a ton of memory by pre-importing everything
-        import spasic.experiment.tt_um_test.counter
+        import spasic.experiment.tt_um_qubitbytes_alive.calvin
         
         # run that experiment
-        spasic.experiment.tt_um_test.counter.test_counter(params, response, num_iterations=16)
+        spasic.experiment.tt_um_qubitbytes_alive.calvin.test_charlie(params, snoopy, num_iterations=16)
         
     except Exception as e:
         # an exception occurred... 
         # let the server know about it
-        response.exception = e 
+        snoopy.exception = e 
     else:
         # we get here, all went well
         # mark the experiment as completed
-        response.completed = True
+        snoopy.completed = True
     return
